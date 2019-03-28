@@ -44,7 +44,10 @@ namespace kmuvcl {
       
       vec(const vec<N, T>& other)
       {
-        // TODO: Fill up this function properly 
+        for(int i=0; i<N; ++i)
+        {
+          this->val[i]= other[i];          
+        }
       }
 
       vec& operator= (const vec<N, T>& other)
