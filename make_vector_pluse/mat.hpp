@@ -29,9 +29,7 @@ namespace kmuvcl {
 
       const T& operator()(unsigned int r, unsigned int c) const
       {
-        // TODO: Fill up this function properly 
-        // Notice: The matrix is column major
-        return  val[0];   
+        return val[r+c*M];
       }
 
       // type casting operators
@@ -69,7 +67,15 @@ namespace kmuvcl {
 
       void set_ith_column(unsigned int i, const vec<M, T>& col)
       {
-        // TODO: Fill up this function properly 
+        int k = 0;
+        int startIndex = i*M;
+        int endIndex = i*M+M;
+    
+        for(int j=startIndex; j < endIndex; ++j)
+        {
+          val[j] = col[k]; 
+          ++k;
+        }
       }
 
       void get_ith_row(unsigned int i, vec<N, T>& row) const
@@ -77,10 +83,9 @@ namespace kmuvcl {
         int k = 0;
         int startIndex = i;
         int endIndex = i+N*N;
-        //  std::cout << "startindex, endindex: "<< startIndex<< " " << endIndex<< std::endl;
+        
         for(int j=startIndex; j < endIndex; j+=N)
         {
-          // std::cout << "row[" << k << "]="<< row[k] << std::endl;
           row[k] = val[j]; 
           ++k;
         }
@@ -88,7 +93,15 @@ namespace kmuvcl {
 
       void set_ith_row(unsigned int i, const vec<N, T>& row)
       {
-        // TODO: Fill up this function properly 
+        int k = 0;
+        int startIndex = i;
+        int endIndex = i+N*N;
+        
+        for(int j=startIndex; j < endIndex; j+=N)
+        {
+          val[j] = row[k]; 
+          ++k;
+        }
       }
 
       mat<N, M, T> transpose() const
