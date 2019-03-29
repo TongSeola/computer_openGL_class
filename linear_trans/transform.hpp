@@ -164,6 +164,14 @@ namespace kmuvcl
 			mat<4, 4, T> frustumMat;
 
 			// TODO: Fill up this function properly 
+			frustumMat(0, 0) = 2 * nearVal / (right - left);
+			frustumMat(0, 2) = (right + left) / (right - left);
+			frustumMat(1, 1) = 2 * nearVal / (top - bottom);
+			frustumMat(1, 2) = (top + bottom) / (top - bottom);
+
+			frustumMat(2, 2) = -(farVal + nearVal) / (farVal - nearVal);
+			frustumMat(2, 3) = -2 * nearVal*farVal / (farVal - nearVal);
+			frustumMat(3, 2) = -1;
 
 			return frustumMat;
 		}
@@ -175,7 +183,12 @@ namespace kmuvcl
 			T  top = 0;
 
 			// TODO: Fill up this function properly 
-
+			// fovy - 수직시야각 - degree
+			T mind = zNear * zFar;
+			T radian = (fovy/2 * M_PI) / 180;
+			right = aspect * tan(radian) * zNear;
+			top = right;
+			// T left, T right, T bottom, T top, T nearVal, T farVal
 			return frustum(-right, right, -top, top, zNear, zFar);
 		}
 	}
